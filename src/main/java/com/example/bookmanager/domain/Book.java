@@ -1,8 +1,10 @@
 package com.example.bookmanager.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -11,19 +13,16 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @EntityListeners(value = MyEntityListener.class)
-public class Member implements Auditable {
+public class Book implements Auditable {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @NonNull
     private String name;
 
-    @NonNull
-    private String email;
+    private String author;
 
-    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
