@@ -4,14 +4,17 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
-@EntityListeners(value = MyEntityListener.class)
-public class Member implements Auditable {
+@EntityListeners(value = AuditingEntityListener.class)
+public class Member{
 
     @Id
     @GeneratedValue
@@ -24,17 +27,10 @@ public class Member implements Auditable {
     private String email;
 
     @Column(updatable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
 
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    @Override
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.setCreatedAt(createdAt);
-    }
-
-    @Override
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.setUpdatedAt(updatedAt);
-    }
 }
