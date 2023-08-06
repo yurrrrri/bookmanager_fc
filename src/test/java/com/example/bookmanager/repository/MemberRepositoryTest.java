@@ -2,6 +2,7 @@ package com.example.bookmanager.repository;
 
 import com.example.bookmanager.domain.Member;
 import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,13 +20,16 @@ class MemberRepositoryTest {
     @Autowired
     private MemberRepository memberRepository;
 
-    @Test
-    void crud() {
+    @BeforeEach
+    void setUp() {
         Member member1 = new Member("jack", "jack@example.com");
         Member member2 = new Member("sophie", "sophie@example.com");
 
         memberRepository.saveAll(Lists.newArrayList(member1, member2));
+    }
 
+    @Test
+    void crud() {
         List<Member> saveMembers = memberRepository.findAll(Sort.by(Sort.Direction.DESC, "name"));
         saveMembers.forEach(System.out::println);
 
@@ -35,11 +39,6 @@ class MemberRepositoryTest {
 
     @Test
     void crudMatcher() {
-        Member member1 = new Member("jack", "jack@example.com");
-        Member member2 = new Member("sophie", "sophie@example.com");
-
-        memberRepository.saveAll(Lists.newArrayList(member1, member2));
-
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withIgnorePaths("name")
                 .withMatcher("email", endsWith());
@@ -50,4 +49,8 @@ class MemberRepositoryTest {
         memberRepository.findAll(example).forEach(System.out::println);
     }
 
+    @Test
+    void select() {
+        System.out.println(memberRepository.findByName("jack"));
+    }
 }
