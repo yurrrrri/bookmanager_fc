@@ -2,6 +2,7 @@ package com.example.bookmanager.domain;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @Getter
 @Setter
+@EqualsAndHashCode
 @EntityListeners(value = AuditingEntityListener.class)
 public class BaseEntity {
 

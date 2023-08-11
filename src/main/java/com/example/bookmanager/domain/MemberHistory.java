@@ -1,30 +1,24 @@
 package com.example.bookmanager.domain;
 
-import com.example.bookmanager.domain.listener.MemberEntityListener;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
+import lombok.ToString;
 
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @Entity
-@EntityListeners(value = {MemberEntityListener.class})
-public class Member extends BaseEntity {
+public class MemberHistory extends BaseEntity {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @NonNull
     private String name;
 
-    @NonNull
     private String email;
 
     @Enumerated(value = EnumType.STRING)
@@ -48,12 +42,8 @@ public class Member extends BaseEntity {
     })
     private Address companyAddress;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
-    private List<MemberHistory> memberHistories = new ArrayList<>();
-
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    private List<Review> reviews = new ArrayList<>();
+    @ManyToOne
+    @ToString.Exclude
+    private Member member;
 
 }
