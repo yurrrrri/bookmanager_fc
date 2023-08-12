@@ -7,28 +7,22 @@ import jakarta.persistence.OneToOne;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Where;
 
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Where(clause = "deleted = false")
-public class Book extends BaseEntity {
+public class BookReviewInfo extends BaseEntity {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private String name;
+    @OneToOne(optional = false)
+    private Book book;
 
-    private String category;
+    private float averageReviewScore;
 
-    private String author;
-
-    @OneToOne(mappedBy = "book")
-    private BookReviewInfo bookReviewInfo;
-
-    private boolean deleted;
+    private int reviewCount;
 
 }
