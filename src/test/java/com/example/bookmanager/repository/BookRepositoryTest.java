@@ -47,4 +47,12 @@ class BookRepositoryTest {
         bookRepository.findBookNameAndCategory(PageRequest.of(1, 1))
                 .forEach(bc -> System.out.println(bc.getName() + ", " + bc.getCategory()));
     }
+
+    @Test
+    void nativeQueryTest() {
+        bookRepository.findAll().forEach(System.out::println);
+        System.out.println("affected rows : " + bookRepository.updateCategories());
+        bookRepository.findAllCustom().forEach(System.out::println);
+        System.out.println(bookRepository.showTables());
+    }
 }

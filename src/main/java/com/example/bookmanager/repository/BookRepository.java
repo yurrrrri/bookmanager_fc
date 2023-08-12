@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,5 +34,16 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query(value = "select new com.example.bookmanager.repository.dto.BookNameAndCategory(b.name, b.category) from Book b")
     Page<BookNameAndCategory> findBookNameAndCategory(Pageable pageable);
+
+    @Query(value = "select * from book", nativeQuery = true)
+    List<Book> findAllCustom();
+
+    @Transactional
+    @Modifying
+    @Query(value = "update book set category = 'IT전문서'", nativeQuery = true)
+    int updateCategories();
+
+    @Query(value = "show tables", nativeQuery = true)
+    List<String> showTables();
 
 }
