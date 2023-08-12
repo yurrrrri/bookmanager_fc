@@ -56,4 +56,8 @@ public class Member extends BaseEntity {
     @JoinColumn(name = "user_id")
     private List<Review> reviews = new ArrayList<>();
 
+    public Member(@NonNull String name, @NonNull String email) {
+        this.name = name;
+        this.email = email;
+    }
 }

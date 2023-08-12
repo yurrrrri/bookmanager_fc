@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Where;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,8 +13,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Where(clause = "deleted = false")
-public class Book extends BaseEntity {
+public class Author extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -23,25 +21,11 @@ public class Book extends BaseEntity {
 
     private String name;
 
-    private String category;
-
-    private String author;
-
-    @OneToOne(mappedBy = "book")
-    private BookReviewInfo bookReviewInfo;
+    private String country;
 
     @OneToMany
-    @JoinColumn(name = "book_id")
-    private List<Review> reviews = new ArrayList<>();
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    private Publisher publisher;
-
-    @OneToMany
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "author_id")
     private List<BookAndAuthor> bookAndAuthors = new ArrayList<>();
-
-    private boolean deleted;
 
     public void addBookAndAuthors(BookAndAuthor... bookAndAuthors) {
         Collections.addAll(this.bookAndAuthors, bookAndAuthors);
