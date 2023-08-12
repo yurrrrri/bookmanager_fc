@@ -4,6 +4,7 @@ import com.example.bookmanager.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDateTime;
 
@@ -33,8 +34,17 @@ class BookRepositoryTest {
                         LocalDateTime.now().minusDays(1L))
         );
 
-        bookRepository.findBookNameAndCategory().forEach(tuple -> {
-            System.out.println(tuple.getName() + " : " + tuple.getCategory());
+        bookRepository.findBookNameAndCategory().forEach(b -> {
+            System.out.println(b.getName() + " : " + b.getCategory());
         });
+    }
+
+    @Test
+    void pageableTest() {
+        bookRepository.findBookNameAndCategory(PageRequest.of(0, 1))
+                .forEach(bc -> System.out.println(bc.getName() + ", " + bc.getCategory()));
+
+        bookRepository.findBookNameAndCategory(PageRequest.of(1, 1))
+                .forEach(bc -> System.out.println(bc.getName() + ", " + bc.getCategory()));
     }
 }
