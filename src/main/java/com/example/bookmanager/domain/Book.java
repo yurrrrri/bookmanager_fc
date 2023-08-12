@@ -1,5 +1,7 @@
 package com.example.bookmanager.domain;
 
+import com.example.bookmanager.domain.converter.BookStatusConverter;
+import com.example.bookmanager.repository.dto.BookStatus;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -42,6 +44,9 @@ public class Book extends BaseEntity {
     private List<BookAndAuthor> bookAndAuthors = new ArrayList<>();
 
     private boolean deleted;
+
+    @Convert(converter = BookStatusConverter.class)
+    private BookStatus status;
 
     public void addBookAndAuthors(BookAndAuthor... bookAndAuthors) {
         Collections.addAll(this.bookAndAuthors, bookAndAuthors);
