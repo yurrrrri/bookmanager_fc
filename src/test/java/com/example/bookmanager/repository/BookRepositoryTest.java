@@ -32,5 +32,9 @@ class BookRepositoryTest {
                         LocalDateTime.now().minusDays(1L),
                         LocalDateTime.now().minusDays(1L))
         );
+
+        bookRepository.findBookNameAndCategory().forEach(tuple -> {
+            System.out.println(tuple.getName() + " : " + tuple.getCategory());
+        });
     }
 }

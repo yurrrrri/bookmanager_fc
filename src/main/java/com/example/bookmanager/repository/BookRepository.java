@@ -1,6 +1,7 @@
 package com.example.bookmanager.repository;
 
 import com.example.bookmanager.domain.Book;
+import com.example.bookmanager.repository.dto.BookNameAndCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -25,5 +26,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 //            @Param("name") String name,
 //            @Param("createdAt") LocalDateTime createdAt,
 //            @Param("updatedAt") LocalDateTime updatedAt);
+
+    @Query(value = "select b.name as name, b.category as category from Book b")
+    List<BookNameAndCategory> findBookNameAndCategory();
 
 }
