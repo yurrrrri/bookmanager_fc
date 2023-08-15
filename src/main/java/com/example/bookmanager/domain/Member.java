@@ -2,16 +2,14 @@ package com.example.bookmanager.domain;
 
 import com.example.bookmanager.domain.listener.MemberEntityListener;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @EntityListeners(value = {MemberEntityListener.class})
